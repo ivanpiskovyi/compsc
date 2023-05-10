@@ -1,0 +1,26 @@
+#!/bin/bash
+user_input=""
+i=1
+while [[ $user_input != "quit" ]]; do
+  echo "Enter a command or 'quit' to exit"
+  read user_input
+
+  case $user_input in
+  "readapoem")
+    cat Zapovit
+    ;;
+  "count")
+    while [ $i -le 10 ]; do
+      echo $i
+      i=$((i + 1))
+    done
+    ;;
+  "quit")
+    echo "Goodbye!"
+    ;;
+  *)
+    echo "Invalid command: $user_input"
+    ;;
+
+  esac
+done
