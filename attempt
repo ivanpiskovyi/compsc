@@ -2,6 +2,7 @@
 user_input=""
 user_input2=""
 user_input3=""
+user_input4=""
 i=1
 
 while [[ $user_input != "quit" ]]; do
@@ -25,7 +26,9 @@ while [[ $user_input != "quit" ]]; do
     grep -c "$user_input3" Zapovit
     ;;
   "count")
-    while [ $i -le 10 ]; do
+    echo "Till what number do you want to count?"
+    read -r user_input4
+    while [ $i -le $user_input4 ]; do
       echo $i
       i=$((i + 1))
     done
@@ -37,4 +40,4 @@ while [[ $user_input != "quit" ]]; do
     echo "Invalid command: '$user_input'"
     ;;
   esac
-  done
+done
