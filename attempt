@@ -1,33 +1,30 @@
 #!/bin/bash
-user_input=""
-user_input2=""
-user_input3=""
-user_input4=""
-i=1
-
 while [[ $user_input != "quit" ]]; do
   echo "Enter a command or 'quit' to exit"
   read -r user_input
   case $user_input in
-  "poem")
+  "poem"|"readapoem"|"showpoem"|"zapovit")
     cat Zapovit
     ;;
   "letter")
-    echo "What letter do you want to find?"
+    echo "Enter a letter to display the lines with:"
     read -r user_input2
     cat Zapovit | grep "$user_input2"
     ;;
-  "lines")
-    wc -l Zapovit
+  "lines"|"countlines"|"cl")
+    lines=$(wc -l Zapovit | awk '{print $1}')
+    echo "File has $lines lines"
     ;;
-  "lineswithletter")
-    echo "Lines with what letter do you want to count?"
+  "lineswithletter"|"lwl")
+    echo "Enter a letter to count the lines with:"
     read -r user_input3
-    grep -c "$user_input3" Zapovit
+     lwl=$(grep -c "$user_input3" Zapovit)
+     echo "File has $lwl lines with letter '$user_input3'"
     ;;
-  "count")
+  "count"|"countto")
     echo "Till what number do you want to count?"
     read -r user_input4
+    i=1
     while [ $i -le $user_input4 ]; do
       echo $i
       i=$((i + 1))
