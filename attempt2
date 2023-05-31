@@ -1,0 +1,59 @@
+#!/bin/bash
+clear
+echo "Use 'help'"
+while [[ $user_input != "quit" ]]; do
+  echo "Enter a command or 'quit' to exit"
+  read -r user_input
+  case $user_input in
+  "help")
+	  echo "I can do these commands: 'poem', 'letter', 'lines', 'compare', 'lineswithletter'('lwl'), 'count', 'quit'"
+    ;;
+  "poem"|"readapoem"|"showpoem"|"zapovit")
+    cat Zapovit
+    ;;
+  "letter")
+    echo "Enter a letter to display the lines with:"
+    read -r user_input2
+    cat Zapovit | grep -i "$user_input2"
+    ;;
+  "lines"|"countlines"|"cl")
+    lines=$(wc -l Zapovit | awk '{print $1}')
+    echo "File has $lines lines"
+    ;;
+  "compare")
+    echo "Enter two letters two compare lines with them:"
+    read -r letter1
+    read -r letter2
+    letterc1=$(grep -c -i "$letter1" Zapovit)
+    letterc2=$(grep -c -i "$letter2" Zapovit)
+    if [[ $letterc1 -eq $letterc2 ]]; then
+            echo "Number of lines with letter '$letter1' is the same as with letter '$letter2'"
+    elif [[ $letterc1 -gt $letterc2 ]]; then
+            echo "Number of lines with letter '$letter1' is bigger than with letter '$letter2'"    
+    else 
+	    echo "Number of lines with letter '$letter1' is less than with letter '$letter2'"
+    fi
+    ;;
+  "lineswithletter"|"lwl")
+    echo "Enter a letter to count the lines with:"
+    read -r user_input3
+     lwl=$(grep -c -i "$user_input3" Zapovit)
+     echo "File has $lwl lines with letter '$user_input3'"
+    ;;
+  "count"|"countto")
+    echo "Till what number do you want to count?"
+    read -r user_input4
+    i=1
+    while [ $i -le $user_input4 ]; do
+      echo $i
+      i=$((i + 1))
+    done
+    ;;
+  "quit")
+    echo "Goodbye!"
+    ;;
+  *)
+    echo "Invalid command: '$user_input'"
+    ;;
+  esac
+done
